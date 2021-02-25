@@ -1,0 +1,394 @@
+<odoo>
+  <data>
+
+    <!-- Location Tree -->
+    <record model="ir.ui.view" id="tree_view_location">
+      <field name="name">Location List</field>
+      <field name="model">asset.location</field>
+      <field name="arch" type="xml">
+        <tree>
+            <field name="name"/>
+            <field name="location"/>
+            <field name="counter"/>
+            <field name="sales"/>
+            <field name="scrap"/>
+        </tree>
+      </field>
+    </record>
+    <!-- Location Form -->
+    <record model="ir.ui.view" id="from_view_location">
+      <field name="name">Location Form</field>
+      <field name="model">asset.location</field>
+      <field name="arch" type="xml">
+        <form string="Asset View">
+            <sheet>
+              <div class="col-sm-12">
+                <div class="oe_title">
+                  <div class="oe_edit_only">
+                    <label for="name" string="Location Name"/>
+                  </div>
+                  <h1>
+                    <field name="name"/>
+                  </h1>
+                  <field name="locCode" placeholder="Location Code"/>
+                </div>
+                <group string="Type of Location">
+                  <group>
+                    <field name="location"/>
+                    <field name="counter"/>
+                  </group>
+                  <group>
+                    <field name="sales"/>
+                    <field name="scrap"/>
+                  </group>
+                </group>
+              </div>
+              <group>
+                <notebook>
+                  <page string="Assets">
+                    <field name="asset_ids" nolabel="1" colspan="4" readonly="1">
+                      <tree string="" editable="bottom">
+                        <field name="name"/>
+                        <field name="asset_code"/>	
+                        <field name="status" />
+                      </tree>
+                      <form string="Asset Details">
+                        <sheet>
+                          <group>
+                            <field name="name"/>
+                            <field name="asset_code"/>
+                            <field name="status" />
+                          </group>
+                        </sheet>	
+                      </form>
+                    </field>
+                  </page>
+                </notebook>
+              </group>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+
+  <!-- Asset Kanban -->
+  <record model="ir.ui.view" id="bt_asset_management_asset_kanban">
+    <field name="name">Asset Kanban</field>
+    <field name="model">asset.asset</field>
+    <field name="arch" type="xml">
+      <kanban class="o_kanban_mobile">
+        <field name="id"/>
+        <field name="image"/>
+        <field name="name"/>
+        <field name="asset_code"/>
+        <field name="purchase_date"/>
+          <field name="purchase_value"/>
+          <field name="model_name"/>
+          <field name="serial_no"/>
+          <templates>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                <div class="o_kanban_image o_kanban_content">
+                  <t t-if="record.image.raw_value">
+                    <img t-att-src="kanban_image('asset.asset', 'image', record.id.raw_value)" alt="Logo"/>
+                  </t>
+                </div>  
+                  <div class="oe_kanban_details">
+                    <strong class="oe_partner_heading">
+                      <field name="name"/>
+                    </strong>
+                    <ul>
+                      <li t-if="record.status.raw_value">Status: <field name="status"/></li>
+                      <li t-if="record.asset_code.raw_value">Code: <field name="asset_code"/></li>
+                      <li t-if="record.model_name.raw_value">Model: <field name="model_name"/></li>
+                      <li t-if="record.serial_no.raw_value">Serial #: <field name="serial_no"/></li>
+                    </ul> 
+                  </div>   
+              </div>
+            </t>
+          </templates>                
+      </kanban>
+    </field>	
+  </record>  
+
+
+    <!-- Asset Tree -->
+    <record model="ir.ui.view" id="tree_view_asset">
+      <field name="name">Asset List</field>
+      <field name="model">asset.asset</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="asset_code"/>
+          <field name="purchase_date" />
+          <field name="purchase_value"/>
+          <field name="location"/>
+          <field name="model_name" />
+          <field name="serial_no"/>
+          <field name="manufacturer"/>
+          <field name="warranty_start" />
+          <field name="warranty_end" />
+        </tree>
+      </field>
+    </record>
+    <!-- Asset Form -->
+    <record model="ir.ui.view" id="from_view_asset">
+      <field name="name">Asset Form</field>
+      <field name="model">asset.asset</field>
+      <field name="arch" type="xml">
+        <form string="Asset View">
+            <header>
+              <field name="state" widget="statusbar"  statusbar_visible="active,scrapped"/>
+            </header>
+            <sheet>
+              <field name="image_medium" widget="image" class="oe_avatar"/>
+              <div class="oe_title">
+                <div class="oe_edit_only">
+                  <button name="move_to_scrap" style="float:right;margin-bottom:10px" type="object" class="btn-primary" string="Scrap"/>
+                  <!-- <button name="convert_image" style="float:right;margin-bottom:10px" type="object" class="btn-primary" string="Converter"/> -->
+                  <label for="name" string="Asset Name"/>
+                </div>
+                <h1>
+                  <field name="name"/>
+                </h1>
+                <div class="o_row">
+                  <field name="category"  placeholder="Category"/>
+                </div>
+              </div>
+              <group>
+                <group>
+                  <!-- <field name="scrap"/> -->
+                  <field name="asset_code"/>
+                  <field name="purchase_date"/>
+                  <field name="model_name"/>
+                </group>
+                <group>
+                  <field name="purchase_value"/>
+                  <field name="location"/>
+                  <field name="serial_no"/>
+                </group>
+                <group>
+                  <field name="tangible"/>
+                </group>
+                <group>
+                  <field name="barcode"/>
+                  <field name="rfid"/>
+                </group>
+              </group>
+              <!-- <notebook>
+                <page string="Warranty">
+                  <group>
+                    <field name="manufacturer"/>
+                    </group>
+                    <group>		
+                    <field name="warranty_start"/>
+                    <field name="warranty_end"/>
+                  </group>	
+                </page>
+                <page string="Notes">
+                  <field name="note"/>
+                </page>
+              </notebook>    -->
+              <notebook>
+                <page string="Move">
+                  <field name="move_ids" nolabel="1" colspan="4" readonly="1">
+                    <tree string="" editable="bottom">
+                      <field name="from_location"/>
+                      <field name="to_Location"/>
+                    </tree>
+                  </field>
+                </page>
+              </notebook>
+            </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- Category Tree -->
+    <record model="ir.ui.view" id="tree_view_category">
+      <field name="name">Category List</field>
+      <field name="model">asset.category</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="category_no"/>
+        </tree>
+      </field>
+    </record>
+    <!-- Category Form -->
+    <record model="ir.ui.view" id="from_view_category">
+      <field name="name">Category Form</field>
+      <field name="model">asset.category</field>
+      <field name="arch" type="xml">
+        <form string="Asset View">
+          <sheet>
+            <group string='Asset Category'>
+              <group>
+                <field name="category_no"/>
+              </group>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- Move Tree -->
+    <record model="ir.ui.view" id="tree_view_move">
+      <field name="name">Move List</field>
+      <field name="model">asset.move</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="from_location"/>
+          <field name="asset"/>
+          <field name="to_Location"/>
+          <field name="status" />
+        </tree>
+      </field>
+    </record>
+    <!-- Move Form -->
+    <record model="ir.ui.view" id="from_view_move">
+      <field name="name">Move Form</field>
+      <field name="model">asset.move</field>
+      <field name="arch" type="xml">
+        <form string="Asset View">
+          <header>
+            <field name="state" widget="statusbar"  statusbar_visible="draft,done"/>
+          </header>
+          <sheet>
+            <group>
+              <field name="from_location"/>
+              <field name="asset"/>
+              <field name="to_Location"/>
+              <field name="status" readonly="1"/>
+            </group>
+            <button name="move_asset_to_location" states="draft" type="object" string="Move Asset" class="oe_highlight"/>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+
+
+    <!-- actions opening views on models -->
+
+    <!-- Location Action -->
+    <record model="ir.actions.act_window" id="location_record">
+      <field name="name">Location</field>
+      <field name="res_model">asset.location</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <!-- Asset Action -->
+    <record model="ir.actions.act_window" id="asset_record">
+      <field name="name">Asset</field>
+      <field name="res_model">asset.asset</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="help" type="html">
+      <field name="search_view_id" ref="from_view_asset"/>
+        <p class="oe_view_nocontent_create">
+          Create Asset for the company
+        </p>
+      </field>
+    </record>
+    <!-- Category Action -->
+    <record model="ir.actions.act_window" id="category_record">
+      <field name="name">Category</field>
+      <field name="res_model">asset.category</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <!-- Move Action -->
+    <record model="ir.actions.act_window" id="move_record">
+      <field name="name">Move</field>
+      <field name="res_model">asset.move</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+
+    <!-- actions opening tree on models -->
+
+    <!-- Location link Tree -->
+    <record id="action_location_tree_linking" model="ir.actions.act_window.view"> 
+        <field eval="1" name="sequence"/> 
+        <field name="view_mode">tree</field> 
+        <field name="view_id" ref="tree_view_location"/> 
+        <field name="act_window_id" ref="location_record"/> 
+    </record>
+    <!-- Location link form -->
+    <record id="action_location_form_linking" model="ir.actions.act_window.view"> 
+        <field eval="2" name="sequence"/> 
+        <field name="view_mode">form</field> 
+        <field name="view_id" ref="from_view_location"/> 
+        <field name="act_window_id" ref="location_record"/> 
+    </record>
+
+    <!-- link kanban -->
+    <record id="action_asset_kanban_linking" model="ir.actions.act_window.view"> 
+        <field eval="1" name="sequence"/> 
+        <field name="view_mode">kanban</field> 
+        <field name="view_id" ref="bt_asset_management_asset_kanban"/> 
+        <field name="act_window_id" ref="asset_record"/> 
+    </record>
+    <!-- Asset link Tree -->
+    <record id="action_asset_tree_linking" model="ir.actions.act_window.view"> 
+        <field eval="2" name="sequence"/> 
+        <field name="view_mode">tree</field> 
+        <field name="view_id" ref="tree_view_asset"/> 
+        <field name="act_window_id" ref="asset_record"/> 
+    </record>
+    <!-- Asset link form -->
+    <record id="action_asset_form_linking" model="ir.actions.act_window.view"> 
+        <field eval="3" name="sequence"/> 
+        <field name="view_mode">form</field> 
+        <field name="view_id" ref="from_view_asset"/> 
+        <field name="act_window_id" ref="asset_record"/> 
+    </record>
+
+    <!-- Category link Tree -->
+    <record id="action_category_tree_linking" model="ir.actions.act_window.view"> 
+        <field eval="1" name="sequence"/> 
+        <field name="view_mode">tree</field> 
+        <field name="view_id" ref="tree_view_category"/> 
+        <field name="act_window_id" ref="category_record"/> 
+    </record>
+    <!-- Category link form -->
+    <record id="action_category_form_linking" model="ir.actions.act_window.view"> 
+        <field eval="2" name="sequence"/> 
+        <field name="view_mode">form</field> 
+        <field name="view_id" ref="from_view_category"/> 
+        <field name="act_window_id" ref="category_record"/> 
+    </record>
+
+    <!-- Move link Tree -->
+    <record id="action_move_tree_linking" model="ir.actions.act_window.view"> 
+        <field eval="1" name="sequence"/> 
+        <field name="view_mode">tree</field> 
+        <field name="view_id" ref="tree_view_move"/> 
+        <field name="act_window_id" ref="move_record"/> 
+    </record>
+    <!-- Move link form -->
+    <record id="action_move_form_linking" model="ir.actions.act_window.view"> 
+        <field eval="2" name="sequence"/> 
+        <field name="view_mode">form</field> 
+        <field name="view_id" ref="from_view_move"/> 
+        <field name="act_window_id" ref="move_record"/> 
+    </record>
+
+
+
+    <!-- menu item -->
+
+    <menuitem name="Asset Tracking" id="asset_tracker_menu_root" sequence="1"/>
+
+    <!-- menu categories -->
+    <menuitem name="Main Menu" id="asset_tracking_menu" parent="asset_tracker_menu_root" sequence="1"/>
+
+    <!-- sub menu categories -->
+    <menuitem name="Asset" id="asset_menu" parent="asset_tracking_menu" action="asset_record" sequence="3"/>
+    <menuitem name="Move" id="move_menu" parent="asset_tracking_menu" action="move_record" sequence="4"/>
+    <menuitem name="Location" id="location_menu" parent="asset_tracking_menu" action="location_record" sequence="1"/>
+    <menuitem name="Category" id="category_menu" parent="asset_tracking_menu" action="category_record" sequence="2"/>
+
+  </data>
+</odoo>

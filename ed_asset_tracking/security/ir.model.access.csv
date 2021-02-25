@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_asset_location,asset_location,model_asset_location,,1,1,1,1
+access_asset_asset,asset_asset,model_asset_asset,,1,1,1,1
+access_asset_category,asset_category,model_asset_category,,1,1,1,1
+access_asset_move,asset_move,model_asset_move,,1,1,1,1
