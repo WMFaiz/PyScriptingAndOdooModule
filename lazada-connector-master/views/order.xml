@@ -1,0 +1,134 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="action_order_lazada_form">
+    <field name="name">Lazada Order Form</field>
+    <field name="model">order.lazada</field>
+    <field name="arch" type="xml">
+        <form string="Lazada Order Form">
+            <sheet>
+                <div class="col-12">
+                    <group string="General Information">
+                        <field name="dateStart"/>
+                        <field name="dateEnd"/>
+                        <field name="voucher"/> 
+                        <field name="warehouse_code"/>
+                        <field name="voucher_code"/>
+                        <field name="gift_option"/>
+                        <field name="price"/>
+                        <field name="national_registration_number"/> 
+                        <field name="shipping_fee_original"/>
+                        <field name="payment_method"/>
+                        <field name='customer_first_name'/>
+                        <field name="shipping_fee_discount_seller"/>
+                        <field name="shipping_fee"/>
+                        <field name="branch_number"/>
+                        <field name="tax_code"/>
+                        <field name="delivery_info"/>
+                        <field name="statuses"/>
+                        <field name="extra_attributes"/>
+                        <field name="order_id"/> 
+                        <field name="gift_message"/>
+                        <field name="remarks"/>
+                    </group>
+                    
+                    <group>
+                        <group string="Address Billing">
+                            <field name="first_name_ab"/>  
+                            <field name="last_name_ab"/>
+                            <field name="phone_ab"/>
+                            <field name="phone2_ab"/>
+                            <field name="address1_ab"/>   
+                            <field name="address2_ab"/>  
+                            <field name="address3_ab"/>
+                            <field name="address4_ab"/>
+                            <field name="address5_ab"/>
+                            <field name="country_ab"/> 
+                            <field name='city_ab'/>
+                            <field name="post_code_ab"/>
+                        </group>
+
+                        <group string="Address Shipping">
+                            <field name="first_name_as"/>  
+                            <field name="last_name_as"/>
+                            <field name="phone_as"/>
+                            <field name="phone2_as"/>
+                            <field name="address1_as"/>   
+                            <field name="address2_as"/>  
+                            <field name="address3_as"/>
+                            <field name="address4_as"/>
+                            <field name="address5_as"/>
+                            <field name="country_as"/> 
+                            <field name='city_as'/>
+                            <field name="post_code_as"/>
+                        </group>
+                    </group>
+                </div>
+                <footer>
+                    <button name="lazada_order_product" type="object" style="margin-left:15px" string="Get Order" class="oe_highlight"/>
+                </footer>
+            </sheet>
+        </form>
+    </field>
+    </record>
+
+    <record model="ir.ui.view" id="action_order_lazada_tree">
+    <field name="name">Lazada Order List</field>
+    <field name="model">order.lazada</field>
+    <field name="arch" type="xml">
+        <tree>
+            <field name="voucher"/> 
+            <field name="warehouse_code"/>
+            <field name="voucher_code"/>
+            <field name="price"/>
+            <field name="shipping_fee_original"/>
+            <field name="payment_method"/>
+            <field name="shipping_fee_discount_seller"/>
+            <field name="statuses"/>
+            <field name="extra_attributes"/>
+            <field name="order_id"/> 
+            <!-- <field name="country_ab"/> 
+            <field name="address3_ab"/>
+            <field name="address2_ab"/>
+            <field name='city_ab'/>
+            <field name="phone_ab"/>
+            <field name="address1_ab"/>
+            <field name="post_code_ab"/>
+            <field name="phone2_ab"/>
+            <field name="last_name_ab"/>
+            <field name="address5_ab"/>
+            <field name="address4_ab"/>
+            <field name="first_name_ab"/>
+            <field name="country_as"/> 
+            <field name="address3_as"/>
+            <field name="address2_as"/>
+            <field name='city_as'/>
+            <field name="phone_as"/>
+            <field name="address1_as"/>
+            <field name="post_code_as"/>
+            <field name="phone2_as"/>
+            <field name="last_name_as"/>
+            <field name="address5_as"/>
+            <field name="address4_as"/>
+            <field name="first_name_as"/> -->
+        </tree>
+    </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="lazada_order_act">
+        <field name="name">Lazada Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">order.lazada</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+            Get Lazada order
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="lazada_order" name="Lazada Order"
+        parent="sale.sale_order_menu" sequence="2" action='lazada_order_act'/>
+  </data>
+</odoo>
+

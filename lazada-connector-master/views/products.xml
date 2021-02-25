@@ -1,0 +1,75 @@
+<odoo>
+  <data>
+
+    <record id="product_template_inherit_form" model="ir.ui.view">
+      <field name="name">product.template.inherit.form</field>
+      <field name="inherit_id" ref="product.product_template_only_form_view"/>
+      <field name="model">product.template</field>
+      <field name="arch" type="xml">
+        <xpath expr="/form/*" position="before">
+            <header>
+                <button name="lazada_create" type="object" string="Add Product" class="btn-primary"/>
+                <button name="lazada_update" type="object" string="Update Product" class="btn-primary"/>
+                <button name="lazada_delete" type="object" string="Delete Product" class="btn-primary"/>
+            </header>
+        </xpath>
+        <xpath expr="//field[@name='type']" position="after">
+            <field name="web_url"/>
+        </xpath>
+        <xpath expr="//page[@name='inventory']" position="after">
+            <page name="lazada" string="Lazada" >
+                <sheet>
+                    <div class="col-sm-12">
+                        <group>
+                            <group string="Basic Info">
+                                <field name="LazadaProductName" required="True"/>
+                                <field name="SPUId"/>
+                                <field name="AssociatedSku"/>
+                                <field name="Brand"/>
+                                <field name="Model_"/>
+                                <!-- <field name="shopsku"/>
+                                <field name="SkuId" />
+                                <field name="orderId" /> -->
+                            </group>  
+                            <group string="Detailed Info">
+                                <field name="short_description"/>
+                                <!-- <field name="delivery_option_sof"/> -->
+                                <field name="SellerSku" required="True"/>
+                                <field name="Package_content"/>
+                                <!-- new -->
+                                <field name="Long_description"/>
+                                <field name="Product_description"/>
+                            </group> 
+                            <group string="Price &amp; Stock">
+                                <field name="Color"/>
+                                <field name="Size"/>
+                                <!-- <field name="SalePrice"/> -->
+                                <field name="Quantity"/>
+                                <field name="CoreConstruction"/>
+                                <!-- <field name="Image"/> -->
+                                <field name="SaleStartDate"/>
+                                <field name="SaleEndDate"/>
+                                <!-- <field name="Inventories"/>
+                                <field name="Inventory"/> -->
+                                <!-- new -->
+                                <field name="SpecialPrice"/>
+                            </group> 
+                            <group string="Service &amp; Delivery">
+                                <field name="Package_length"/>
+                                <field name="Package_height"/>
+                                <field name="Package_weight"/>
+                                <field name="Package_width"/>
+                                <!-- new -->
+                                <field name="Warranty_type"/>
+                                <field name="Warranty_period"/>
+                                <field name="Warranty_policy"/>
+                            </group>
+                        </group>
+                    </div>
+                </sheet>
+            </page>
+        </xpath>		
+      </field>
+    </record> 
+  </data>
+</odoo>

@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_lazada_configuration,lazada.configuration,model_lazada_configuration,,1,1,1,1
+access_product_lazada,product.lazada,model_product_lazada,,1,1,1,1
+access_order_lazada,order.lazada,model_order_lazada,,1,1,1,1
+access_product_template,product.template,model_product_template,,1,1,1,1

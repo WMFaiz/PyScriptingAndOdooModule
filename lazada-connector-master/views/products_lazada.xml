@@ -1,0 +1,75 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="action_download_product_lazada_tree">
+      <field name="name">Download Lazada Product List</field>
+      <field name="model">product.lazada</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="dateStart"/> 
+          <field name="dateEnd"/> 
+          <!-- <field name="name"/>
+          <field name='skuid'/>
+          <field name="sellersku"/>
+          <field name="shopsku"/>
+          <field name="price"/>
+          <field name="quantity"/>
+          <field name="available"/>
+          <field name="primary_category"/>
+          <field name="item_id"/> -->
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="action_download_product_lazada_form">
+      <field name="name">Download Lazada Product Form</field>
+      <field name="model">product.lazada</field>
+      <field name="arch" type="xml">
+        <form string="Download Lazada Product Form">
+            <div class="col-sm-12">
+              <group>
+                  <field name="dateStart"/> 
+                  <field name="dateEnd"/> 
+                  <!-- <field name="name"/>
+                  <field name='skuid'/>
+                  <field name="sellersku"/>
+                  <field name="shopsku"/>
+                  <field name="price"/>
+                  <field name="quantity"/>
+                  <field name="available"/>
+                  <field name="primary_category"/>
+                  <field name="item_id"/> -->
+              </group>
+            </div>
+            <footer>
+              <button name="download_product_lazada" type="object" style="margin-left:15px" string="Download" class="oe_highlight"/>
+            </footer>
+        </form>
+      </field>
+    </record>
+
+    <!-- lazada -->
+    <record id="action_download_lazada_product" model="ir.actions.act_window">
+      <field name="name">Download Lazada Product</field>
+      <field name="res_model">product.lazada</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    <!-- link tree -->
+    <record id="download_product_lazada_tree_linking" model="ir.actions.act_window.view"> 
+        <field eval="1" name="sequence"/> 
+        <field name="view_mode">tree</field> 
+        <field name="view_id" ref="action_download_product_lazada_tree"/> 
+        <field name="act_window_id" ref="action_download_lazada_product"/> 
+    </record>
+    <!-- link form -->
+    <record id="download_product_lazada_form_linking" model="ir.actions.act_window.view"> 
+        <field eval="2" name="sequence"/> 
+        <field name="view_mode">form</field> 
+        <field name="view_id" ref="action_download_product_lazada_form"/> 
+        <field name="act_window_id" ref="action_download_lazada_product"/> 
+    </record>
+
+    <menuitem id="menu_download_product_lazada" name="Download Lazada Product" parent="stock.menu_stock_inventory_control" action="action_download_lazada_product" sequence="12"/>
+
+  </data>
+</odoo>

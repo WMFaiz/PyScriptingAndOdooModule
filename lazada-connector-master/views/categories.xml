@@ -1,0 +1,95 @@
+<odoo>
+  <data>
+        <!--     Lazada Categories    -->
+        <record model="ir.ui.view" id="view_lazada_category_form">
+            <field name="name">Lazada Categories</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <form string="Lazada Categories">                
+                    <sheet>
+                        <div class="col-sm-12">
+                            <group>
+                                <group string="Basic Info">
+                                    <field name="PrimaryCategory"/>
+                                    <field name="SPUId"/>
+                                    <field name="AssociatedSku"/>
+                                    <!-- <field name="Name"/> -->
+                                    <field name="Brand"/>
+                                    <!-- new -->
+                                    <field name="Model_"/>
+                                </group>  
+                                <group string="Detailed Info">
+                                    <field name="short_description"/>
+                                    <!-- <field name="delivery_option_sof"/> -->
+                                    <field name="SellerSku"/>
+                                    <field name="Package_content"/>
+                                    <!-- new -->
+                                    <field name="Long_description"/>
+                                    <field name="Product_description"/>
+                                </group> 
+                                <group string="Price &amp; Stock">
+                                    <field name="Color"/>
+                                    <!-- <field name="Price"/> -->
+                                    <!-- <field name="SalePrice"/> -->
+                                    <field name="Quantity"/>
+                                    <field name="Image"/>
+                                    <field name="SaleStartDate"/>
+                                    <field name="SaleEndDate"/>
+                                    <!-- <field name="Inventories"/>
+                                    <field name="Inventory"/> -->
+                                    <!-- new -->
+                                    <field name="SpecialPrice"/>
+                                </group> 
+                                <group string="Service &amp; Delivery">
+                                    <field name="Package_length"/>
+                                    <field name="Package_height"/>
+                                    <field name="Package_weight"/>
+                                    <field name="Package_width"/>
+                                    <!-- new -->
+                                    <field name="Warranty_type"/>
+                                    <field name="Warranty_period"/>
+                                    <field name="Warranty_policy"/>
+                                </group>
+                            </group>
+                        </div>
+                        <button name="lazada_create" type="object" string="Add Product" class="btn-primary" style="margin-left:15px;"/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_lazada_category_tree">
+            <field name="name">Lazada Categories</field>
+            <field name="model">product.template</field>
+            <field name="arch" type="xml">
+                <tree string="Lazada Categories">
+                    <field name="PrimaryCategory"/>
+                    <field name="SPUId"/>
+                    <field name="AssociatedSku"/>
+                    <field name="Name"/>
+                    <field name="Brand"/>
+                    <field name="Model_"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_lazada_category">
+            <field name="name">Lazada Categories</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Add a new Lazada Categories
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_product_lazada_category" name="Lazada"
+            parent="stock.menu_stock_config_settings" sequence="2"/>
+        <menuitem id="menu_product_lazada_category_child" name="Add Product"
+            parent="menu_product_lazada_category" sequence="1" action="action_lazada_category"/>
+  </data>
+</odoo>
+

@@ -1,0 +1,145 @@
+<odoo>
+  <data>
+
+    <!-- Lazada Configuration Kanban -->
+    <record model="ir.ui.view" id="kanban_view_lazada">
+      <field name="name">Configuration Kanban</field>
+      <field name="model">lazada.configuration</field>
+      <field name="arch" type="xml">
+        <kanban class="o_kanban_mobile">
+          <templates> 
+            <field name="id"/>
+            <field name="image_medium"/>
+            <field name="Shop_name"/>
+            <field name="company"/>
+            <field name="warehouse"/>
+            <field name="stockLocation"/>
+            <field name="URL"/>
+            <field name="API_Key"/>
+            <field name="API_Secret"/>
+            <field name="API_Code"/>
+            <field name="API_Token"/>
+            <t t-name="kanban-box">
+              <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_res_partner_kanban">
+                <div class="o_kanban_image o_kanban_content">
+                  <t t-if="record.image_medium.raw_value">
+                    <img t-att-src="kanban_image('lazada.configuration', 'image_medium', record.id.raw_value)" alt="Logo"/>
+                  </t>
+                </div>  
+                  <div class="oe_kanban_details">
+                    <strong class="oe_partner_heading">
+                      <field name="Shop_name"/>
+                    </strong>
+                    <ul>
+                      <li t-if="record.company.raw_value">Company: <field name="company"/></li>
+                      <li t-if="record.warehouse.raw_value">Warehouse: <field name="warehouse"/></li>
+                      <li t-if="record.stockLocation.raw_value">Location: <field name="stockLocation"/></li>
+                    </ul> 
+                  </div>   
+              </div>
+            </t>
+          </templates>                
+        </kanban>
+      </field>	
+    </record> 
+
+    <!-- Lazada Tree -->
+    <record model="ir.ui.view" id="tree_view_lazada">
+      <field name="name">Lazada Configuration List</field>
+      <field name="model">lazada.configuration</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="Shop_name"/>
+          <field name="warehouse"/>
+          <field name="stockLocation"/>
+          <field name="URL"/>
+          <field name="API_Key"/>
+          <field name="API_Secret"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- Lazada Configuration Form -->
+    <record model="ir.ui.view" id="form_view_lazada">
+      <field name="name">Lazada Configuration Form</field>
+      <field name="model">lazada.configuration</field>
+      <field name="arch" type="xml">
+        <form string="Lazada Configuration Form">
+          <sheet>
+            <header>
+              <!-- <button name="testMethods" type="object" string="Test" style='left:0' class="btn-primary" confirm='Are you sure you want to Test?'/> -->
+              <button name="lazada_connect" type="object" string="Authorize" style='left:0' class="btn-primary" confirm='Are you sure you want to authorize?'/>
+              <button name="%(lazada-connector-master.lazada_order_wizard)d" type="action" string="Sync Product" class="btn-primary" confirm='Are you sure you want to sync?'/>
+            </header>
+            <group>
+              <field name="image_medium" widget="image" class="oe_avatar"/>
+              <field name="Shop_name"/>
+              <field name="company"/>
+              <field name="warehouse"/>
+              <field name="stockLocation"/>
+              <field name="URL"/>
+              <field name="API_Key"/>
+              <field name="API_Secret"/>
+              <field name="API_Code"/>
+              <field name="API_Token"/>
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record> 
+
+    <!-- actions opening views on models -->
+
+    <!-- Lazada Action -->
+    <record model="ir.actions.act_window" id="lazada_action_authorization">
+      <field name="name">Configuration</field>
+      <field name="res_model">lazada.configuration</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="help" type="html">
+      <field name="search_view_id" ref="from_view_asset"/>
+        <p class="oe_view_nocontent_create">
+          Create configuration for shop
+        </p>
+      </field>
+    </record>
+    <!-- link kanban -->
+    <record id="action_authorization_kanban_linking" model="ir.actions.act_window.view"> 
+        <field eval="1" name="sequence"/> 
+        <field name="view_mode">kanban</field> 
+        <field name="view_id" ref="kanban_view_lazada"/> 
+        <field name="act_window_id" ref="lazada_action_authorization"/> 
+    </record>
+    <!-- link tree -->
+    <record id="action_authorization_tree_linking" model="ir.actions.act_window.view"> 
+        <field eval="2" name="sequence"/> 
+        <field name="view_mode">tree</field> 
+        <field name="view_id" ref="tree_view_lazada"/> 
+        <field name="act_window_id" ref="lazada_action_authorization"/> 
+    </record>
+    <!-- link form -->
+    <record id="action_authorization_form_linking" model="ir.actions.act_window.view"> 
+        <field eval="3" name="sequence"/> 
+        <field name="view_mode">form</field> 
+        <field name="view_id" ref="form_view_lazada"/> 
+        <field name="act_window_id" ref="lazada_action_authorization"/> 
+    </record>
+
+
+    <!-- Top menu item -->
+
+    <menuitem name="Lazada Auth" id="multichannel_menu_root" sequence="-2"/>
+
+    <!-- menu categories -->
+
+    <menuitem name="Dashboard" id="lazada_dashboard_menu" parent="multichannel_menu_root" sequence="1"/>
+    <menuitem name="Sales" id="lazada_sales_menu" parent="multichannel_menu_root" sequence="2"/>
+    <menuitem name="Product" id="lazada_product_menu" parent="multichannel_menu_root" sequence="3"/>
+    <menuitem name="Sync Product" id="lazada_product_menu" parent="multichannel_menu_root" sequence="3"/>
+    <menuitem name="Invoice" id="lazada_invoice_menu" parent="multichannel_menu_root"  sequence="4"/>
+    <menuitem name="Configuration" id="lazada_configuration_menu" parent="multichannel_menu_root" sequence="5"/>
+
+    <!-- sub menu categories for configuration -->
+    <menuitem name="Lazada Authorization" id="lazada_authorization_menu" parent="lazada_configuration_menu" action="lazada_action_authorization" sequence="2"/>
+
+  </data>
+</odoo>

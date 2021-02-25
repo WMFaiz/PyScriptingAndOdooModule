@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--Create a Wizard and Call it in Button Click Odoo-->
+    <!--  https://www.youtube.com/watch?v=K60oF3-vaxA&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=36  -->
+    <!--How To Call Wizard From Menu Item Odoo-->
+    <!--  https://www.youtube.com/watch?v=qpkVKy9JzEw&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=37 -->
+     <record id="lazada_order_form" model="ir.ui.view">
+         <field name="name">order.lazada.wizard</field>
+         <field name="model">order.lazada.wizard</field>
+         <field name="arch" type="xml">
+            <form string="Sync Details">
+                <sheet>
+                    <div class="col-sm-12">
+                        <group string="Sync Details">
+                            <field name="dateStart"/>
+                            <field name="dateEnd"/>
+                            <field name="fromLocation"/>
+                            <!-- <field name="prod_lot_id" /> -->
+                            <!-- <field name="package_id" /> -->
+                        </group>
+                        <group string="Shop">
+                            <field name="lazada_config"/>
+                            <field name="warehouse"/>
+                            <field name="toLocation" />
+                            <field name="company"/>
+                            <field name="API_Key"/>
+                            <field name="API_Secret"/>
+                            <field name="API_Code"/>
+                            <field name="API_Token"/>
+                        </group>
+                    </div>
+                </sheet>
+                <footer>
+                    <button name="Sync_product_lazada" string="Synchronize" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+         </field>
+     </record>
+
+    <record id="lazada_order_wizard" model="ir.actions.act_window">
+        <field name="name">Sync Order Lazada</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">order.lazada.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="lazada_order_form"/>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
